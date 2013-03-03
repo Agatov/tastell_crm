@@ -1,0 +1,45 @@
+%ul.breadcrumb
+  %li
+    = link_to 'Список заведений', places_path
+    %span.divider
+      = '/'
+  %li.active
+    = @place.name
+  %li{style: 'float: right'}
+    %a{href: edit_place_path(@place)}
+      Редактировать
+
+%table.table.table-striped{style: 'width: 500px; margin: 50px auto;'}
+  %tr
+    %td
+      Менеджер
+    %td
+      = link_to @place.user.full_name, user_path(@place.user)
+  %tr
+    %td
+      Статус
+    %td
+      .btn-group
+        %a.btn.btn-info.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown'}
+          = @place.state
+          %span.caret
+        %ul.dropdown-menu
+          - Place.states_for_select.each do |state, state_name|
+            %li
+              = link_to state, place_path(@place, place: {state: state_name}), method: :put
+
+  %tr
+    %td{width: 200}
+      Адрес
+    %td
+      = @place.address
+  %tr
+    %td
+      Контактные телефоны
+    %td
+      = @place.phones
+  %tr
+    %td
+      Имя контакта
+    %td
+      = @place.contact_name

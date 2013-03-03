@@ -17,6 +17,7 @@ group :development do
   gem "thin"
 end
 
+gem 'parseexcel'
 
 gem 'jquery-rails'
 

@@ -1,0 +1,49 @@
+%legend
+  Список пользователей
+  %a.btn{href: new_user_path, style: 'float: right'}
+    Добавить
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th
+        = '#'
+      %th
+        Логин
+      %th
+        Пароль
+      %th
+        Имя
+      %th
+        Фамилия
+      %th
+        Роль
+      %td
+        = '-'
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td
+          = user.id.to_s
+        %td
+          = user.login
+        %td
+          = user.password
+        %td
+          = user.first_name
+        %td
+          = user.last_name
+        %td
+          = user.role
+        %td
+          .btn-group
+            %a.btn.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown'}
+              = '...'
+              %span.caret
+            %ul.dropdown-menu
+              %li
+                = link_to 'Просмотреть', user_path(user)
+              %li
+                = link_to 'Редактировать', edit_user_path(user)
+              %li
+                = link_to 'Удалить', user_path(user), method: :delete, confirm: 'Вы уверены?'

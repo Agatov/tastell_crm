@@ -1,0 +1,7 @@
+%legend
+  Список заведений
+  %a.btn{href: new_place_path, style: 'float: right'}
+    Добавить
+
+= render partial: 'places/table', locals: {places: @places, options: {}}
+

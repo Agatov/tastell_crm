@@ -1,0 +1,15 @@
+%ul.breadcrumb
+  %li
+    = link_to 'Список пользователей', places_path
+    %span.divider
+      = '/'
+  %li.active
+    = @user.full_name
+  %li{style: 'float: right'}
+    %a{href: edit_user_path(@user)}
+      Редактировать
+
+%legend
+  Заведения пользователя
+
+= render partial: 'places/table', locals: {places: @places, options: {hide_manager: true}}

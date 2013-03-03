@@ -12,13 +12,15 @@
           %ul.nav
             %li
               = link_to 'Заведения', places_path
+            %li
+              = link_to 'Пользователи', users_path
           %ul.nav.pull-right
             %li.divider-vertical
             %li.dropdown
               %a.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown'} Кирилл Агатов
               %ul.dropdown-menu
                 %li
-                  %a{href: '#'} Выйти
+                  = link_to 'Выйти', logout_users_path, method: :delete
 
 
 

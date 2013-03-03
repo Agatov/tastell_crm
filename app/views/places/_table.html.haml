@@ -1,0 +1,46 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th
+        = '#'
+      %th
+        Название
+      %th
+        Адрес
+      - if options[:hide_manager].nil?
+        %th
+          Менеджер
+      %th
+        Статус
+      %th
+        Телефоны
+      %th
+        = '-'
+  %tbody
+    - places.each do |place|
+      %tr
+        %td
+          = place.id.to_s
+        %td
+          = place.name
+        %td
+          = place.address
+        - if options[:hide_manager].nil?
+          %td
+            = link_to place.user.full_name, user_path(place.user)
+        %td
+          = place.state
+        %td
+          = place.phones
+        %td
+          .btn-group
+            %a.btn.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown'}
+              = '...'
+              %span.caret
+            %ul.dropdown-menu
+              %li
+                = link_to 'Просмотреть', place_path(place)
+              %li
+                = link_to 'Редактировать', edit_place_path(place)
+              -#%li
+                = link_to 'Удалить', place_path(place), method: :delete, confirm: 'Вы уверены?'
