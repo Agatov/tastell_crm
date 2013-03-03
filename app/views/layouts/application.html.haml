@@ -2,8 +2,8 @@
 %html
   %head
     = csrf_meta_tags
-    = stylesheet_link_tag    "account", :media => "all"
-    = javascript_include_tag "account"
+    = stylesheet_link_tag    'application', :media => 'all'
+    = javascript_include_tag 'application'
   %body
 
     .navbar.navbar-fixed-top
@@ -11,13 +11,14 @@
         .container
           %ul.nav
             %li
-              = link_to 'Заведения', account_places_path
+              = link_to 'Заведения', places_path
           %ul.nav.pull-right
-            %li
-              - if account_signed_in?
-                = link_to 'Выйти', logout_accounts_path, method: :delete
-              - else
-                = link_to 'Войти', login_accounts_path
+            %li.divider-vertical
+            %li.dropdown
+              %a.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown'} Кирилл Агатов
+              %ul.dropdown-menu
+                %li
+                  %a{href: '#'} Выйти
 
 
 

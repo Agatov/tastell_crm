@@ -1,0 +1,5 @@
+#login-form
+  %form{action: login_users_path, method: :post}
+    %input{ type: :text, placeholder: 'Ваш логин', name: :login, autocomlete: :off }
+    %input{ type: :password, placeholder: 'Пароль', name: :password }
+    %input{type: :submit, value: 'Войти' }
