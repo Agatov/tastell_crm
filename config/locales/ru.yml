@@ -2,3 +2,15 @@ ru:
   time:
     formats:
       dayMonth: "%d %B %Y, %H:%M"
+  activerecord:
+    enums:
+      place:
+        states:
+          new: Новое
+          phoned: Cозвон
+          appointment: Назначена встреча
+          not_interested: Не интересно
+          met: Была встреча
+          to_connect: К подключению
+          success: Подключено
+          rejected: Отказ

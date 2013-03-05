@@ -5,14 +5,18 @@ class PlacesController < ApplicationController
 
   def index
     if current_user.admin?
-      @places = Place.order(:id).includes(:user)
+      @places = Place.with_state(params[:state]).order(:id).includes(:user)
+      @places_count = Place.with_state(params[:state]).count
     else
       @places = current_user.places.order(:id)
+      @places_count = current_user.places.count
     end
 
     @options = {
         show_manager: current_user.can_edit_users?,
-        show_edit_link: current_user.can_edit_places?
+        show_edit_link: current_user.can_edit_places?,
+        table_colors: params[:state].nil?,
+        hide_state_column: params[:state].nil?
     }
   end
 

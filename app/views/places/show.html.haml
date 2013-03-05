@@ -10,18 +10,19 @@
       Редактировать
 
 %table.table.table-striped{style: 'width: 500px; margin: 50px auto;'}
-  %tr
-    %td
-      Менеджер
-    %td
-      = link_to @place.user.full_name, user_path(@place.user)
+  - if current_user.can_edit_users?
+    %tr
+      %td
+        Менеджер
+      %td
+        = link_to @place.user.full_name, user_path(@place.user)
   %tr
     %td
       Статус
     %td
       .btn-group
         %a.btn.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown', class: state_btn_class_for(@place)}
-          = @place.state
+          = Place.states_for_select[@place.state_cd].first
           %span.caret
         %ul.dropdown-menu
           - Place.states_for_select.each do |state, state_name|

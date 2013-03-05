@@ -10,6 +10,10 @@ module UserConcerns
       admin?
     end
 
+    def can_add_places?
+      admin?
+    end
+
     def can_change_place_state?(place)
       admin? or place.user_id == self.id
     end

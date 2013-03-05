@@ -1,14 +1,19 @@
 %legend
   Список заведений
-  %a.btn{href: new_place_path, style: 'float: right'}
-    Добавить
+  = "(#{@places_count})"
+  - if current_user.can_add_places?
+    %a.btn{href: new_place_path, style: 'float: right'}
+      Добавить
 
-%ul.nav.nav-tabs
-  %li.active
-    %a{href: '#'}
-      Все
-  %li
-    %a{href: '#'}
-      На подключении
+- if current_user.admin?
+  %ul.nav.nav-tabs
+    %li{class: params[:state].nil? ? 'active' : 'false'}
+      %a{href: places_path}
+        Все
+    - Place.states_for_select.each do |state_for_select|
+      %li{class: params[:state] == state_for_select.last.to_s ? 'active' : ''}
+        %a{href: places_path(state: state_for_select.last.to_s)}
+          = state_for_select.first
+
 = render partial: 'places/table', locals: {places: @places, options: @options}
 

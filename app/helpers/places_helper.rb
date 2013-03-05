@@ -17,7 +17,7 @@ module PlacesHelper
 
   def row_class_for(place)
     if place.state_appointment?
-      'btn-warning'
+      'warning'
     elsif place.state_phoned?
       'warning'
     elsif place.state_not_interested? or place.state_rejected?
