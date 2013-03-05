@@ -7,7 +7,7 @@
         Название
       %th
         Адрес
-      - if options[:hide_manager].nil?
+      - if options[:show_manager]
         %th
           Менеджер
       %th
@@ -18,14 +18,14 @@
         = '-'
   %tbody
     - places.each do |place|
-      %tr
+      %tr{class: row_class_for(place)}
         %td
           = place.id.to_s
         %td
           = place.name
         %td
           = place.address
-        - if options[:hide_manager].nil?
+        - if options[:show_manager]
           %td
             = link_to place.user.full_name, user_path(place.user)
         %td
@@ -40,7 +40,8 @@
             %ul.dropdown-menu
               %li
                 = link_to 'Просмотреть', place_path(place)
-              %li
-                = link_to 'Редактировать', edit_place_path(place)
+              - if options[:show_edit_link]
+                %li
+                  = link_to 'Редактировать', edit_place_path(place)
               -#%li
                 = link_to 'Удалить', place_path(place), method: :delete, confirm: 'Вы уверены?'

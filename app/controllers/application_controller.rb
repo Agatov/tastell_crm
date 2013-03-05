@@ -2,7 +2,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def user_logged_in?
-    !session[:user_id].nil?
+    !cookies[:user_id].nil?
+  end
+
+  def login_user!
+    redirect_to login_users_path unless user_logged_in?
   end
 
   def current_user

@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   as_enum :role, [:manager, :moderator, :admin]
 
+  include UserConcerns::Permissions
+
   # @param [String] password
   def can_authenticate?(password)
     self.password == password

@@ -1,11 +1,24 @@
 class PlacesController < ApplicationController
 
+  before_filter :login_user!
+  before_filter :has_access?, except: [:index, :show, :state]
+
   def index
-    @places = Place.order(:id).includes(:user)
+    if current_user.admin?
+      @places = Place.order(:id).includes(:user)
+    else
+      @places = current_user.places.order(:id)
+    end
+
+    @options = {
+        show_manager: current_user.can_edit_users?,
+        show_edit_link: current_user.can_edit_places?
+    }
   end
 
   def show
     @place = Place.find(params[:id])
+    @comments = @place.comments.order('id desc')
   end
 
   def new
@@ -36,8 +49,21 @@ class PlacesController < ApplicationController
     end
   end
 
+  def state
+    @place = Place.find(params[:id])
+    redirect_to root_path unless current_user.can_change_place_state?(@place)
+    @place.update_attributes(state: params[:state])
+    redirect_to :back
+  end
+
   def destroy
 
+  end
+
+  private
+
+  def has_access?
+    redirect_to root_path unless current_user.can_edit_users?
   end
 
 end

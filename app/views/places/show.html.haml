@@ -20,13 +20,13 @@
       Статус
     %td
       .btn-group
-        %a.btn.btn-info.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown'}
+        %a.btn.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown', class: state_btn_class_for(@place)}
           = @place.state
           %span.caret
         %ul.dropdown-menu
           - Place.states_for_select.each do |state, state_name|
             %li
-              = link_to state, place_path(@place, place: {state: state_name}), method: :put
+              = link_to state, state_place_path(@place, state: state_name), method: :put
 
   %tr
     %td{width: 200}
@@ -43,3 +43,11 @@
       Имя контакта
     %td
       = @place.contact_name
+
+%legend
+  Комментарии
+
+.hero-unit
+  = simple_form_for Comment.new, url: place_comments_path(@place), html: {class: 'form-vertical'} do |f|
+    = f.input :content
+    = f.submit 'Добавить'

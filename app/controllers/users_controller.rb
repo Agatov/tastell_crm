@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+
+  before_filter :login_user!, except: [:login, :login_page]
+  before_filter :has_access?, except: [:login, :login_page, :logout]
+
+
   def index
     @users = User.order(:id)
   end
@@ -57,6 +62,12 @@ class UsersController < ApplicationController
 
   def logout
     sign_out
-    redirect_to 'places/login'
+    redirect_to login_users_path
+  end
+
+  private
+
+  def has_access?
+    redirect_to root_path unless current_user.can_edit_users?
   end
 end

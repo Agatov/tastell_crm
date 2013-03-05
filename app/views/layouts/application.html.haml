@@ -12,12 +12,14 @@
           %ul.nav
             %li
               = link_to 'Заведения', places_path
-            %li
-              = link_to 'Пользователи', users_path
+            - if current_user.can_edit_users?
+              %li
+                = link_to 'Пользователи', users_path
           %ul.nav.pull-right
             %li.divider-vertical
             %li.dropdown
-              %a.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown'} Кирилл Агатов
+              %a.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown'}
+                = current_user.full_name
               %ul.dropdown-menu
                 %li
                   = link_to 'Выйти', logout_users_path, method: :delete
