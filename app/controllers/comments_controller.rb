@@ -17,6 +17,7 @@ class CommentsController < ApplicationController
   def create
     @place = Place.find(params[:place_id])
     @comment = @place.comments.new(params[:comment])
+    @comment.user = current_user
 
     if @comment.save
       redirect_to :back

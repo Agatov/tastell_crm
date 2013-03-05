@@ -1,0 +1,4 @@
+ru:
+  time:
+    formats:
+      dayMonth: "%d %B %Y, %H:%M"

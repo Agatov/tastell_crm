@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def user_logged_in?
-    !cookies[:user_id].nil?
+    return false if cookies[:user_id] and cookies[:user_id].empty?
+    cookies[:user_id] ? true : false
   end
 
   def login_user!

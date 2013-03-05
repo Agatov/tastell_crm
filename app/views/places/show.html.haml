@@ -44,10 +44,40 @@
     %td
       = @place.contact_name
 
-%legend
-  Комментарии
 
-.hero-unit
+
+
+.modal.hide.false#comment-modal
+  .modal-header
+    %button.close{type: :button, 'data-dismiss' => 'modal', tabindex: '-1', 'aria-hidden' => 'true'}
+      = '&times;'.html_safe
+    %h3
+      Добавить комментарий
   = simple_form_for Comment.new, url: place_comments_path(@place), html: {class: 'form-vertical'} do |f|
-    = f.input :content
-    = f.submit 'Добавить'
+
+    .modal-body
+      = f.input :content, input_html: {rows: '5', style: 'width: 400px'}
+    .modal-footer
+      %a.btn{href: '#', 'data-dismiss' => 'modal', 'aria-hidden' => 'true'}
+        Отмена
+      = f.submit 'Добавить', class: ['btn', 'btn-success']
+
+.row
+  .span6.offset3
+    %legend
+      Комментарии
+      %a.btn{href: '#comment-modal', style: 'float: right', 'data-toggle' => 'modal'}
+        Добавить
+    .media-list
+      - @comments.each do |comment|
+        .media
+          %a.pull-left{href: '#'}
+            %img.media-object{'data-src' => 'holder.js/64x64'}
+          .media-body
+            %h4.media-heading
+              = comment.user.full_name
+            = comment.content
+            %br
+            %small
+              = l comment.created_at, format: :dayMonth
+

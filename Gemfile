@@ -27,6 +27,7 @@ gem 'simple_enum'
 
 gem 'simple_form'
 gem 'kaminari'
+gem 'russian'
 
 # Use unicorn as the app server
 # gem 'unicorn'

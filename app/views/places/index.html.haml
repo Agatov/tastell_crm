@@ -3,5 +3,12 @@
   %a.btn{href: new_place_path, style: 'float: right'}
     Добавить
 
+%ul.nav.nav-tabs
+  %li.active
+    %a{href: '#'}
+      Все
+  %li
+    %a{href: '#'}
+      На подключении
 = render partial: 'places/table', locals: {places: @places, options: @options}
 
