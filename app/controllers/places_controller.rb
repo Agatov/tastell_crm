@@ -56,7 +56,8 @@ class PlacesController < ApplicationController
   def state
     @place = Place.find(params[:id])
     redirect_to root_path unless current_user.can_change_place_state?(@place)
-    @place.update_attributes(state: params[:state])
+
+    @place.change_state(params[:state], current_user)
     redirect_to :back
   end
 

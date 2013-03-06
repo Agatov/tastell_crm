@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 
   has_many :places
   has_many :comments
+  has_many :events
+  has_many :place_states
 
   as_enum :role, [:manager, :moderator, :admin]
 

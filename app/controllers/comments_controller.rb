@@ -16,10 +16,9 @@ class CommentsController < ApplicationController
 
   def create
     @place = Place.find(params[:place_id])
-    @comment = @place.comments.new(params[:comment])
-    @comment.user = current_user
+    @comment = current_user.comments.new(params[:comment])
 
-    if @comment.save
+    if @place.add_comment @comment
       redirect_to :back
     end
   end

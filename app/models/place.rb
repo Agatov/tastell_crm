@@ -3,8 +3,30 @@ class Place < ActiveRecord::Base
 
   belongs_to :user
   has_many :comments
+  has_many :place_states
+  has_many :events
 
-  as_enum :state, [:new, :phoned, :appointment, :not_interested, :met, :to_connect, :success, :rejected], prefix: true
+  include Statable
 
-  scope :with_state, lambda { |state| where(state_cd: self.states(state)) unless state.nil? }
+  def change_state(state, user)
+    update_attributes(state: state)
+    place_state = self.place_states.create(state: state, user: user)
+
+    Builders::EventBuilder.new.build_state_changed(
+        user: user,
+        place_state: place_state,
+        place: self
+    ).save
+  end
+
+  def add_comment(comment)
+    comment.place = self
+    comment.save
+    Builders::EventBuilder.new.build_comment_added(
+        user: comment.user,
+        comment: comment,
+        place: self
+    ).save
+  end
+
 end
