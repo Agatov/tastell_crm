@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :events
   has_many :place_states
 
+  mount_uploader :avatar, UserAvatarUploader
   as_enum :role, [:manager, :moderator, :admin]
 
   include UserConcerns::Permissions

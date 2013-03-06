@@ -1,0 +1,49 @@
+.row
+  .span3
+    %legend
+      Фильтр
+    %ul.nav.nav-tabs.nav-stacked
+      %li{class: params[:user_id].nil? ? 'active' : ''}
+        %a{ href: events_path } Все пользователи
+      - User.order(:id).each do |user|
+        %li{class: params[:user_id] == user.id.to_s ? 'active' : ''}
+          = link_to user.full_name, events_path(user_id: user.id)
+  .span8.offset1
+    %legend
+      Активность
+
+    - if @events.empty?
+      %h1
+        Этот пользователь лоботряс и ничем пока не отличился.
+    - else
+      .media-list
+        - @events.each do |event|
+          .media
+            %a.pull-left{href: user_path(event.user)}
+              - if event.user.avatar?
+                = image_tag event.user.avatar_url(:small), class: 'media-object'
+              - else
+                %img.media-object{'data-src' => 'holder.js/64x64'}
+            .media-body
+              %h5.media-heading
+                = link_to event.user.full_name, user_path(event.user)
+                %small
+                  = '|'
+                  = l event.created_at, format: :dayMonth
+
+
+              - if event.type_state_changed?
+                Изменил статус заведения
+                = link_to event.place.name, place_path(event.place)
+                на
+                %span.label{class: label_class_for(event.place_state)}
+                  = Place.states_for_select[event.place_state.state_cd].first
+
+
+              - elsif event.type_comment_added?
+                Добавил к заведению
+                = link_to event.place.name, place_path(event.place)
+                комментарий:
+
+                .comment{style: 'padding: 5px; background: #f2f2f2; margin-top: 10px; margin-left: 10px'}
+                  = event.comment.content

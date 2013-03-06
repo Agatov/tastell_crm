@@ -46,8 +46,6 @@
       = @place.contact_name
 
 
-
-
 .modal.hide.false#comment-modal
   .modal-header
     %button.close{type: :button, 'data-dismiss' => 'modal', tabindex: '-1', 'aria-hidden' => 'true'}
@@ -72,13 +70,16 @@
     .media-list
       - @comments.each do |comment|
         .media
-          %a.pull-left{href: '#'}
-            %img.media-object{'data-src' => 'holder.js/64x64'}
+          %a.pull-left{href: user_path(comment.user)}
+            - if comment.user.avatar?
+              = image_tag comment.user.avatar_url(:small), class: 'media-object'
+            - else
+              %img.media-object{'data-src' => 'holder.js/64x64'}
+
           .media-body
-            %h4.media-heading
-              = comment.user.full_name
+            %h5.media-heading
+              = link_to comment.user.full_name, user_path(comment.user)
+              %small
+                = l comment.created_at, format: :dayMonth
             = comment.content
-            %br
-            %small
-              = l comment.created_at, format: :dayMonth
 

@@ -30,4 +30,18 @@ module PlacesHelper
       'success'
     end
   end
+
+  def label_class_for(place)
+    if place.state_appointment? or place.state_phoned?
+      'label-warning'
+    elsif place.state_not_interested? or place.state_rejected?
+      'label-important'
+    elsif place.state_met?
+      'label-info'
+    elsif place.state_to_connect?
+      'label-info'
+    elsif place.state_success?
+      'label-success'
+    end
+  end
 end

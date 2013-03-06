@@ -17,7 +17,8 @@ group :development do
   gem "thin"
 end
 
-gem 'parseexcel'
+gem 'rmagick'
+gem 'carrierwave'
 
 gem 'jquery-rails'
 

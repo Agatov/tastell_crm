@@ -12,4 +12,6 @@ Crm::Application.routes.draw do
     post :login, on: :collection
     delete :logout, on: :collection
   end
+
+  resources :events, only: :index
 end
