@@ -1,3 +1,11 @@
+.row
+  %form
+    .span10
+      %input.span10{type: :text, placeholder: 'Поиск'}
+    .span2
+      %input.btn.span2{type: :submit, value: 'Найти'}
+
+
 %table.table.table-striped
   %thead
     %tr
@@ -29,7 +37,10 @@
           = place.address
         - if options[:show_manager]
           %td
-            = link_to place.user.full_name, user_path(place.user)
+            - if place.user
+              = link_to place.user.full_name, user_path(place.user)
+            - else
+              = '-'
         - if options[:hide_state_column]
           %td
             = Place.states_for_select[place.state_cd].first
@@ -48,3 +59,6 @@
                   = link_to 'Редактировать', edit_place_path(place)
               -#%li
                 = link_to 'Удалить', place_path(place), method: :delete, confirm: 'Вы уверены?'
+
+
+= paginate places

@@ -14,3 +14,10 @@ ru:
           to_connect: К подключению
           success: Подключено
           rejected: Отказ
+  views:
+    pagination:
+      first: Первая
+      previous: Предыдущая
+      truncate: ...
+      next: Следующая
+      last: Последняя
