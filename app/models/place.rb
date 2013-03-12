@@ -1,6 +1,5 @@
 class Place < ActiveRecord::Base
   attr_accessible :address, :city, :contact_name, :name, :phones, :state_cd, :state, :user_id
-  include ThinkingSphinx::Scopes
 
   belongs_to :user
   has_many :comments
