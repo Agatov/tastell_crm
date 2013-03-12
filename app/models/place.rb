@@ -9,6 +9,11 @@ class Place < ActiveRecord::Base
 
   include Statable
 
+  define_index do
+    indexes name, address, phones
+    has state_cd
+  end
+
   sphinx_scope(:with_ts_state) do |state|
     {with: {state_cd: Place.states(state)}} unless state.nil?
   end

@@ -29,7 +29,7 @@ gem 'simple_enum'
 gem 'simple_form'
 gem 'kaminari'
 gem 'russian'
-gem 'thinking-sphinx'
+gem 'thinking-sphinx', '2.0.14'
 
 # Use unicorn as the app server
 gem 'unicorn'
