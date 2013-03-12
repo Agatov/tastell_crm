@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.12'
 
 gem 'sqlite3'
-gem 'mysql2'
+gem 'mysql2', '0.3.12b4'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -29,6 +29,7 @@ gem 'simple_enum'
 gem 'simple_form'
 gem 'kaminari'
 gem 'russian'
+gem 'thinking-sphinx'
 
 # Use unicorn as the app server
 gem 'unicorn'
