@@ -5,8 +5,15 @@ class PlacesController < ApplicationController
 
   def index
     if current_user.admin?
-      @places = Place.with_state(params[:state]).order(:id).includes(:user).page(params[:page]).per(50)
-      @places_count = Place.with_state(params[:state]).count
+      if params[:search]
+        @places = Place.with_ts_state(params[:state]).search(params[:search], page: params[:page], per_page: 50)
+        @places_count = @places.count
+      else
+        @places = Place.with_state(params[:state]).order(:id).includes(:user).page(params[:page]).per(50)
+        @places_count = Place.with_state(params[:state]).count
+      end
+
+
     else
       @places = current_user.places.order(:id).page(params[:page]).per(50)
       @places_count = current_user.places.count

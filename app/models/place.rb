@@ -1,5 +1,6 @@
 class Place < ActiveRecord::Base
   attr_accessible :address, :city, :contact_name, :name, :phones, :state_cd, :state, :user_id
+  include ThinkingSphinx::Scopes
 
   belongs_to :user
   has_many :comments
@@ -7,6 +8,10 @@ class Place < ActiveRecord::Base
   has_many :events
 
   include Statable
+
+  sphinx_scope(:with_ts_state) do |state|
+    {with: {state_cd: Place.states(state)}} unless state.nil?
+  end
 
   def change_state(state, user)
     update_attributes(state: state)
