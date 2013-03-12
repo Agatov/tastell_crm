@@ -1,9 +1,12 @@
-.row
-  %form
-    .span10
-      %input.span10{type: :text, placeholder: 'Поиск'}
-    .span2
-      %input.btn.span2{type: :submit, value: 'Найти'}
+- if current_user.admin?
+  .row
+    %form{action: places_path}
+      .span10
+        %input.span10{type: :text, name: :search, placeholder: 'Поиск', value: params[:search]}
+        - if params[:state]
+          %input{type: :hidden, name: :state, value: params[:state]}
+      .span2
+        %input.btn.span2{type: :submit, value: 'Найти'}
 
 
 %table.table.table-striped

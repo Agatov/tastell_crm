@@ -15,7 +15,10 @@
       %td
         Менеджер
       %td
-        = link_to @place.user.full_name, user_path(@place.user)
+        - if @place.user
+          = link_to @place.user.full_name, user_path(@place.user)
+        - else
+          = '-'
   %tr
     %td
       Статус
